@@ -200,3 +200,76 @@ body {
 .animate-hero-glow-delayed {
   animation: hero-glow-float 8s ease-in-out 2s infinite;
 }
+
+@keyframes project-hero-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+.animate-project-hero-zoom {
+  animation: project-hero-zoom 18s ease-out forwards;
+}
+
+@keyframes interface-panel-1 {
+  0%,
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  33% {
+    opacity: 0.4;
+    transform: translateY(-8px);
+  }
+  66% {
+    opacity: 0.2;
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes interface-panel-2 {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(16px) scale(0.95);
+  }
+  33% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  66% {
+    opacity: 0.5;
+    transform: translateY(-8px) scale(0.98);
+  }
+}
+
+@keyframes interface-panel-3 {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: translateY(32px) scale(0.9);
+  }
+  33% {
+    opacity: 0.4;
+    transform: translateY(16px) scale(0.95);
+  }
+  66% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-interface-panel-1 {
+  animation: interface-panel-1 6s ease-in-out infinite;
+}
+
+.animate-interface-panel-2 {
+  animation: interface-panel-2 6s ease-in-out infinite;
+}
+
+.animate-interface-panel-3 {
+  animation: interface-panel-3 6s ease-in-out infinite;
+}

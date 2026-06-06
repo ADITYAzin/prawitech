@@ -13,7 +13,7 @@ Large Radius (24px): Gunakan khusus untuk pembungkus konten besar (seperti area 
 Full Radius (999px / Pill Shape): Khusus untuk tombol sekunder berbentuk kapsul, tombol pencarian, atau foto profil (avatar).
 3. Tipografi
 Batasi penggunaan font-family maksimal 2 jenis untuk menjaga kebersihan visual.
-Font Header (Headline): Menggunakan Plus Jakarta Sans atau Space Grotesk.
+Font Header (Headline): Menggunakan Plus Jakarta Sans.
 Penerapan: Gunakan ketebalan Bold hingga Extra Bold dengan ukuran kontras yang ekstrem untuk menciptakan hierarki visual yang instan.
 Font Body (Paragraf/Subheading): Menggunakan Poppins.
 Penerapan: Ukuran minimal 16px dengan ketebalan Regular hingga Medium.

@@ -1,22 +1,50 @@
-import Link from "next/link";
+import { notFound } from "next/navigation";
+import ProjectDetailHero from "@/components/work/project/ProjectDetailHero";
+import ProjectMetadata from "@/components/work/project/ProjectMetadata";
+import ProjectNarrative from "@/components/work/project/ProjectNarrative";
+import ProjectVisualShowcase from "@/components/work/project/ProjectVisualShowcase";
+import ProjectUpNext from "@/components/work/project/ProjectUpNext";
+import {
+  projects,
+  getProjectBySlug,
+  getNextProject,
+} from "@/lib/projects";
+
+export function generateStaticParams() {
+  return projects.map((project) => ({ slug: project.slug }));
+}
+
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
+
+  if (!project) {
+    return { title: "Project Not Found — Prawitech" };
+  }
+
+  return {
+    title: `${project.title} — Prawitech`,
+    description: project.detail.summary[0],
+  };
+}
 
 export default async function ProjectDetail({ params }) {
   const { slug } = await params;
+  const project = getProjectBySlug(slug);
+
+  if (!project) {
+    notFound();
+  }
+
+  const nextProject = getNextProject(slug);
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
-      <Link
-        href="/work"
-        className="text-sm font-medium text-accent hover:underline"
-      >
-        &larr; Back to Work
-      </Link>
-      <h1 className="mt-6 font-heading text-4xl font-extrabold text-foreground sm:text-5xl capitalize">
-        {slug.replace(/-/g, " ")}
-      </h1>
-      <p className="mt-4 text-foreground/70 leading-relaxed">
-        Project details for this work will be available soon.
-      </p>
+    <div className="flex flex-col">
+      <ProjectDetailHero project={project} />
+      <ProjectMetadata project={project} />
+      <ProjectNarrative project={project} />
+      <ProjectVisualShowcase project={project} />
+      <ProjectUpNext nextProject={nextProject} />
     </div>
   );
 }
