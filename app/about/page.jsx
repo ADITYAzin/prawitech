@@ -1,18 +1,25 @@
+import AboutHero from "@/components/about/AboutHero";
+import OurStory from "@/components/about/OurStory";
+import CoreValues from "@/components/about/CoreValues";
+import OurApproach from "@/components/about/OurApproach";
+import TeamSection from "@/components/about/TeamSection";
+import AboutCTA from "@/components/about/AboutCTA";
+
+export const metadata = {
+  title: "About — Prawitech",
+  description:
+    "Prawitech unites imagination and logic—bridging creative design and technical performance for future-ready businesses.",
+};
+
 export default function About() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
-      <h1 className="font-heading text-4xl font-extrabold text-foreground sm:text-5xl">
-        About Us
-      </h1>
-      <p className="mt-6 text-foreground/70 leading-relaxed">
-        Prawitech is a digital agency specializing in web development, graphic
-        design, and AI automation. We combine creativity with technology to
-        deliver impactful solutions for businesses of all sizes.
-      </p>
-      <p className="mt-4 text-foreground/70 leading-relaxed">
-        Our team is passionate about building clean, performant, and accessible
-        digital experiences that drive results.
-      </p>
+    <div className="flex flex-col">
+      <AboutHero />
+      <OurStory />
+      <CoreValues />
+      <OurApproach />
+      <TeamSection />
+      <AboutCTA />
     </div>
   );
 }
