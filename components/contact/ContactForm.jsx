@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
+
+const services = [
+  "Graphic Design & Identity",
+  "Web Development",
+  "AI Automation",
+];
 
 const objectives = [
   "Start a New Project",
@@ -31,8 +37,13 @@ const selectClass =
 
 const labelClass = "mb-1 block text-xs font-medium uppercase tracking-wider text-[#1A1A1A]/45";
 
-export default function ContactForm() {
+const chevronClass =
+  "pointer-events-none absolute right-0 top-[calc(50%+0.375rem)] h-4 w-4 -translate-y-1/2 text-[#1A1A1A]/35";
+
+export default function ContactForm({ defaultService }) {
   const [submitted, setSubmitted] = useState(false);
+  const initialService =
+    defaultService && services.includes(defaultService) ? defaultService : "";
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -80,6 +91,30 @@ export default function ContactForm() {
                   </option>
                 ))}
               </select>
+              <ChevronDown className={chevronClass} />
+            </div>
+
+            <div className="relative">
+              <label htmlFor="service" className={labelClass}>
+                Service Type
+              </label>
+              <select
+                id="service"
+                name="service"
+                required
+                className={selectClass}
+                defaultValue={initialService}
+              >
+                <option value="" disabled>
+                  Select a service
+                </option>
+                {services.map((opt) => (
+                  <option key={opt} value={opt}>
+                    {opt}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className={chevronClass} />
             </div>
 
             <div className="grid gap-8 sm:grid-cols-2">
@@ -153,6 +188,7 @@ export default function ContactForm() {
                     </option>
                   ))}
                 </select>
+                <ChevronDown className={chevronClass} />
               </div>
               <div className="relative">
                 <label htmlFor="timeline" className={labelClass}>
@@ -168,6 +204,7 @@ export default function ContactForm() {
                     </option>
                   ))}
                 </select>
+                <ChevronDown className={chevronClass} />
               </div>
             </div>
 
@@ -198,3 +235,4 @@ export default function ContactForm() {
     </section>
   );
 }
+
