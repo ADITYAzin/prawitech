@@ -1,28 +1,63 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const supabase = createClient();
+
+  async function handleEmailLogin(e) {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      setError(error.message);
+      setLoading(false);
+      return;
+    }
+
+    router.push("/admin");
+    router.refresh();
+  }
+
+  async function handleGoogleLogin() {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: `${location.origin}/api/auth/callback` },
+    });
+
+    if (error) setError(error.message);
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#F4F7FB] px-6">
       <div className="w-full max-w-sm bg-white/80 backdrop-blur-md rounded-[32px] border border-white/40 p-8 shadow-sm">
-        {/* Branding - Logo */}
         <div className="text-center mb-8">
           <h1 className="font-heading text-2xl font-extrabold text-[#1A1A1A]">
             Prawitech
           </h1>
         </div>
 
-        {/* Headline */}
         <h2 className="font-heading text-xl font-bold text-[#1A1A1A] text-center mb-8">
           Management System Area
         </h2>
 
-        <form className="space-y-6">
-          {/* Email Input */}
+        {error && (
+          <div className="mb-4 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700 font-sans">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleEmailLogin} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-[#1A1A1A] mb-2 font-sans">
               Email Address
@@ -34,10 +69,10 @@ export default function AdminLogin() {
               onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-lg border border-[#1A1A1A]/20 bg-white px-4 py-3 text-sm text-[#1A1A1A] placeholder-[#1A1A1A]/40 focus:border-[#0768FB] focus:outline-none focus:ring-1 focus:ring-[#0768FB] font-sans"
               placeholder="name@prawitech.com"
+              required
             />
           </div>
 
-          {/* Password Input */}
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-[#1A1A1A] mb-2 font-sans">
               Password
@@ -49,18 +84,18 @@ export default function AdminLogin() {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full rounded-lg border border-[#1A1A1A]/20 bg-white px-4 py-3 text-sm text-[#1A1A1A] placeholder-[#1A1A1A]/40 focus:border-[#0768FB] focus:outline-none focus:ring-1 focus:ring-[#0768FB] font-sans"
               placeholder="••••••••"
+              required
             />
           </div>
 
-          {/* Primary CTA Button */}
           <button
             type="submit"
-            className="w-full rounded-[12px] bg-[#0768FB] px-8 py-3 font-semibold text-white hover:opacity-90 transition-opacity font-sans"
+            disabled={loading}
+            className="w-full rounded-[12px] bg-[#0768FB] px-8 py-3 font-semibold text-white hover:opacity-90 transition-opacity font-sans disabled:opacity-50"
           >
-            Sign In
+            {loading ? "Signing in..." : "Sign In"}
           </button>
 
-          {/* Visual Divider */}
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-[#1A1A1A]/20"></div>
@@ -70,9 +105,9 @@ export default function AdminLogin() {
             </div>
           </div>
 
-          {/* Google SSO Button */}
           <button
             type="button"
+            onClick={handleGoogleLogin}
             className="w-full rounded-[12px] bg-white border border-[#1A1A1A]/20 px-8 py-3 font-semibold text-[#1A1A1A] hover:bg-[#F4F7FB] transition-colors font-sans flex items-center justify-center gap-2"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">

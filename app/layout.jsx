@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { Plus_Jakarta_Sans, Poppins, Space_Grotesk } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -27,13 +28,17 @@ export const metadata = {
   description: "Prawitech — Digital Solutions",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") ?? "";
+  const isAdmin = pathname.startsWith("/admin");
+
   return (
     <html lang="en" className={cn("h-full", plusJakarta.variable, spaceGrotesk.variable, poppins.variable, "font-sans")}>
       <body className="min-h-full flex flex-col antialiased">
-        <Header />
+        {isAdmin ? <Header admin /> : <Header />}
         <main className="flex-1">{children}</main>
-        <Footer />
+        {!isAdmin && <Footer />}
       </body>
     </html>
   );
