@@ -4,7 +4,7 @@ const officeAddress =
   "Jambangan, Kecamatan Candi, Kabupaten Sidoarjo, Jawa Timur, Indonesia";
 
 export default function OfficeLocation() {
-  return (
+  return ( 
     <section className="border-t border-[#1A1A1A]/8 pb-20 pt-20 lg:pb-28 lg:pt-28">
       <div className="mx-auto max-w-[1440px] px-6 sm:px-10 lg:px-20">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
