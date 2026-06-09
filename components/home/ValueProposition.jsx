@@ -8,13 +8,13 @@ const propositions = [
   },
   {
     icon: Sparkles,
-    title: "Modern Design & Functionality",
+    title: "User-Centric & Functionality",
     description: "Work that is not only visually stunning, but also delivers an optimal user experience.",
   },
   {
     icon: ArrowUpRight,
-    title: "The Right Technology",
-    description: "Using the latest tech stack that fits your needs, not just following trends.",
+    title: "Efficiency & Speed of Execution",
+    description: "Streamline development and production timelines through the integration of AI-based technology to ensure your business launches faster while meeting the highest industry standards.",
   },
 ];
 

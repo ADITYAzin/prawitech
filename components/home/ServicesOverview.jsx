@@ -6,21 +6,21 @@ const services = [
     icon: Palette,
     title: "Graphic Design & Identity",
     description:
-      "Branding, identitas visual, dan aset kreatif yang memperkuat citra merek Anda.",
+      "We create visual identities and graphic communications that are not only aesthetically pleasing but also strategically designed to strengthen your brand’s position in the eyes of your B2B target market.",
     href: "/services/graphic-design",
   },
   {
     icon: Globe,
     title: "Web Development",
     description:
-      "Website dan aplikasi web modern yang cepat, responsif, dan siap scale.",
+      "Using modern AI-powered web development methods (vibe-coding), we build adaptive, secure, and high-performance websites and web applications with significantly more efficient development times without compromising quality.",
     href: "/services/web-development",
   },
   {
     icon: Bot,
     title: "AI Automation",
     description:
-      "Otomasi cerdas untuk menyederhanakan workflow dan meningkatkan produktivitas.",
+      "We design and integrate artificial intelligence (AI)-based automation systems into your business workflows. From data management automation to customer response systems, we eliminate time-consuming manual processes so your team can focus on growth strategies.",
     href: "/services/ai-automation",
   },
 ];
