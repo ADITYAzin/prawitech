@@ -9,19 +9,19 @@ const team = [
   },
   {
     name: "Agung Dwi Saputra",
-    role: "AI Specialist",
+    role: "Co-Founder & AI Specialist",
     img: "/img/about/agung-dwi-saputra.png",
     gradient: "from-[#0768FB]/20",
   },
   {
     name: "Mahafreen Chesna Nugroho",
-    role: "Graphic Designer",
+    role: "Marketing & Social Media Lead",
     img: "/img/about/mahafreen-chesna-nugroho.png",
     gradient: "from-[#0768FB]/20",
   },
   {
     name: "Arya Chaka Braja Wisesa",
-    role: "Full-Stack Developer",
+    role: "Finance Lead & Full-Stack Developer",
     img: "/img/about/arya-chaka-braja-wisesa.png",
     gradient: "from-[#0768FB]/20",
   },

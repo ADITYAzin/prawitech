@@ -26,7 +26,7 @@ export default function AboutHero() {
           Uniting Imagination and Logic
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#1A1A1A]/70 sm:text-lg lg:text-xl">
-          We are creative thinkers and technical problem solvers. Prawitech
+          We are creative thinkers and problem solvers. Prawitech
           bridges the gap between visual aesthetics and technological performance
           for future-ready businesses.
         </p>

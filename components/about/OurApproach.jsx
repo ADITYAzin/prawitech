@@ -9,33 +9,32 @@ const steps = [
     number: "02",
     title: "Design & Architecture",
     description:
-      "Creative direction and technical architecture are developed in parallel, ensuring every design decision is backed by scalable engineering.",
+      "We design the user experience and plan the technical framework simultaneously. This ensures all visual concepts are realistic, secure, and built on high-performance technology.",
   },
   {
     number: "03",
     title: "Build & Integrate",
     description:
-      "Agile development cycles with transparent milestones. Your team stays informed at every sprint, with zero black-box delivery.",
+      "We develop your digital solution in structured phases with clear project milestones. Your team receives regular progress updates, ensuring full visibility and transparency throughout the process.",
   },
   {
     number: "04",
     title: "Launch & Evolve",
     description:
-      "Deployment, performance validation, and post-launch optimization—because a flawless launch is only the beginning of sustained growth.",
+      "We manage the secure implementation of your system, validate its stability, and provide ongoing optimization to ensure sustainable, long-term business growth.",
   },
 ];
 
 export default function OurApproach() {
   return (
     <section className="py-20 lg:py-32">
-      <div className="mx-auto max-w-[1440px] px-6 sm:px-10 lg:px-20">
+      <div className="approach-content mx-auto max-w-[1440px] px-6 sm:px-10 lg:px-20">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-heading text-3xl font-extrabold tracking-tight text-[#1A1A1A] sm:text-4xl lg:text-5xl">
-            How We Transform Vision into Reality
+          A Structured Approach to Digital Transformation
           </h2>
           <p className="mt-5 text-base leading-relaxed text-[#1A1A1A]/70 sm:text-lg">
-            Our systematic approach ensures every phase remains transparent, on
-            schedule, and aligned with your broader business objectives.
+          A systematic process designed to ensure every phase remains transparent, on schedule, and strictly aligned with core business objectives.
           </p>
         </div>
 

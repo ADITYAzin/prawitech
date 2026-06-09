@@ -5,18 +5,13 @@ export default function OurStory() {
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
             <h2 className="font-heading text-3xl font-extrabold tracking-tight text-[#1A1A1A] sm:text-4xl lg:text-5xl">
-              Driven by a Shared Challenge
+            Driven by Shared Expertise
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-[#1A1A1A]/75 sm:text-xl">
-              Too many organizations are forced to choose between stunning but
-              slow design, or robust systems that confuse users. Prawitech was
-              founded to prove that you can—and should—have both
+            Prawitech is a digital transformation agency that combines creativity, modern web development, and artificial intelligence (AI) to enhance business efficiency. Born from the collaboration of four practitioners, the agency serves as a strategic partner for companies seeking to optimize digital assets and simplify operational complexities.
             </p>
             <p className="mt-5 text-base leading-relaxed text-[#1A1A1A]/60 sm:text-lg">
-              We partner with startups, enterprises, and institutions that refuse
-              to compromise. Every engagement begins with understanding the real
-              operational friction behind the brief—not just the deliverables on
-              paper.
+            By actively embedding AI into both internal workflows and client projects, Prawitech ensures that partner businesses run faster, operate smarter, and deliver measurable growth.
             </p>
           </div>
 
