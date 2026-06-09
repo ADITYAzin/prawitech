@@ -1,14 +1,38 @@
-export default function GraphicDesign() {
+import ServiceHero from "@/components/services/shared/ServiceHero";
+import ServiceWhySection from "@/components/services/shared/ServiceWhySection";
+import ServiceProcessCarousel from "@/components/services/shared/ServiceProcessCarousel";
+import ServiceBottomCTA from "@/components/services/shared/ServiceBottomCTA";
+import { graphicDesignContent } from "@/lib/services/graphic-design";
+
+export const metadata = graphicDesignContent.metadata;
+
+export default function GraphicDesignPage() {
+  const { hero, why, process, bottomCta } = graphicDesignContent;
+
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
-      <h1 className="font-heading text-4xl font-extrabold text-foreground sm:text-5xl">
-        Graphic Design
-      </h1>
-      <p className="mt-6 text-foreground/70 leading-relaxed">
-        We create compelling visual identities, branding assets, and design
-        collateral that make your brand stand out. From logos to complete brand
-        guidelines, our design team delivers pixel-perfect results.
-      </p>
+    <div className="flex flex-col">
+      <ServiceHero
+        headline={hero.headline}
+        subheadline={hero.subheadline}
+        ctaLabel={hero.ctaLabel}
+        ctaHref={hero.ctaHref}
+      />
+      <ServiceWhySection
+        label={why.label}
+        headline={why.headline}
+        solutions={why.solutions}
+      />
+      <ServiceProcessCarousel
+        title={process.title}
+        subtitle={process.subtitle}
+        phases={process.phases}
+      />
+      <ServiceBottomCTA
+        headline={bottomCta.headline}
+        subheadline={bottomCta.subheadline}
+        ctaLabel={bottomCta.ctaLabel}
+        ctaHref={bottomCta.ctaHref}
+      />
     </div>
   );
 }
