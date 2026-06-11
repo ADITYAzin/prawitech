@@ -1,0 +1,45 @@
+import { headers } from "next/headers";
+import { Plus_Jakarta_Sans, Poppins, Space_Grotesk } from "next/font/google";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
+  subsets: ["latin"],
+  weight: ["700", "800"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+});
+
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
+
+export const metadata = {
+  title: "Prawitech",
+  description: "Prawitech — Digital Solutions",
+};
+
+export default async function RootLayout({ children }) {
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") ?? "";
+  const isAdmin = pathname.startsWith("/admin");
+
+  return (
+    <html lang="en" className={cn("h-full", plusJakarta.variable, spaceGrotesk.variable, poppins.variable, "font-sans")}>
+      <body className="min-h-full flex flex-col antialiased">
+        {isAdmin ? <Header admin /> : <Header />}
+        <main className="flex-1">{children}</main>
+        {!isAdmin && <Footer />}
+      </body>
+    </html>
+  );
+}
