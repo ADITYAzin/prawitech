@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { ArrowRight, Menu, X, ChevronDown, LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -12,7 +12,10 @@ export default function Header({ admin }) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
   const supabase = createClient();
+
+  const isAdmin = admin || pathname?.startsWith("/admin");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,6 +35,9 @@ export default function Header({ admin }) {
       document.body.style.overflow = "";
     };
   }, [isMobileOpen]);
+
+  // Hide global header on all admin pages
+  if (isAdmin) return null;
 
   function closeMobile() {
     setIsMobileOpen(false);
@@ -54,14 +60,14 @@ export default function Header({ admin }) {
     >
       <div className="mx-auto max-w-[1440px] flex items-center justify-between px-6 sm:px-10 lg:px-20 py-4">
         <Link
-          href={admin ? "/admin" : "/"}
+          href={isAdmin ? "/admin" : "/"}
           className="font-heading text-2xl font-extrabold text-[#1A1A1A] tracking-tight"
         >
           Prawitech
         </Link>
 
         <nav className="hidden lg:flex items-center gap-8">
-          {admin ? (
+          {isAdmin ? (
             <>
               <Link
                 href="/admin"
@@ -70,10 +76,10 @@ export default function Header({ admin }) {
                 Dashboard
               </Link>
               <Link
-                href="/admin/projects"
+                href="/admin/work"
                 className="text-[14px] sm:text-[15px] text-[#1A1A1A] font-medium hover:text-[#0768FB] transition-colors duration-200"
               >
-                Projects
+                Works
               </Link>
               <Link
                 href="/admin/messages"
@@ -140,7 +146,7 @@ export default function Header({ admin }) {
           )}
         </nav>
 
-        {admin ? (
+        {isAdmin ? (
           <button
             onClick={handleLogout}
             className="hidden lg:inline-flex items-center justify-center gap-2 bg-[#1A1A1A] text-white text-[14px] font-semibold px-6 py-2.5 rounded-[12px] hover:opacity-90 transition-opacity duration-200"
@@ -187,7 +193,7 @@ export default function Header({ admin }) {
           }`}
         >
           <nav className="px-6 sm:px-10 py-6 space-y-5">
-            {admin ? (
+            {isAdmin ? (
               <>
                 <Link
                   href="/admin"
@@ -197,11 +203,11 @@ export default function Header({ admin }) {
                   Dashboard
                 </Link>
                 <Link
-                  href="/admin/projects"
+                  href="/admin/work"
                   onClick={closeMobile}
                   className="block text-[16px] text-[#1A1A1A] font-medium hover:text-[#0768FB] transition-colors duration-200"
                 >
-                  Projects
+                  Works
                 </Link>
                 <Link
                   href="/admin/messages"

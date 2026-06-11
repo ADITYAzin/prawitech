@@ -3,13 +3,15 @@ export const dynamic = "force-dynamic";
 import { createClient } from "@/lib/supabase/server";
 import { projects } from "@/lib/projects";
 import {
-  FolderOpen,
+  Briefcase,
+  ClipboardList,
   Palette,
   Code,
   Cpu,
   Mail,
   Users,
   ArrowUpRight,
+  FolderOpen,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -21,10 +23,18 @@ const serviceIcons = {
 
 const sections = [
   {
-    title: "Projects",
-    count: projects.length,
-    href: "/admin/projects",
-    icon: FolderOpen,
+    title: "Orders",
+    count: "—",
+    href: "/admin/orders",
+    icon: ClipboardList,
+    color: "text-[#0768FB]",
+    bg: "bg-[#0768FB]/5",
+  },
+  {
+    title: "Works",
+    count: "—",
+    href: "/admin/work",
+    icon: Briefcase,
     color: "text-[#0768FB]",
     bg: "bg-[#0768FB]/5",
   },
@@ -33,14 +43,6 @@ const sections = [
     count: "—",
     href: "/admin/messages",
     icon: Mail,
-    color: "text-[#0768FB]",
-    bg: "bg-[#0768FB]/5",
-  },
-  {
-    title: "Services",
-    count: 3,
-    href: "/admin/services",
-    icon: Users,
     color: "text-[#0768FB]",
     bg: "bg-[#0768FB]/5",
   },

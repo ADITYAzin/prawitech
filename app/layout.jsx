@@ -29,16 +29,12 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const headersList = await headers();
-  const pathname = headersList.get("x-pathname") ?? "";
-  const isAdmin = pathname.startsWith("/admin");
-
   return (
     <html lang="en" className={cn("h-full", plusJakarta.variable, spaceGrotesk.variable, poppins.variable, "font-sans")}>
       <body className="min-h-full flex flex-col antialiased">
-        {isAdmin ? <Header admin /> : <Header />}
+        <Header />
         <main className="flex-1">{children}</main>
-        {!isAdmin && <Footer />}
+        <Footer />
       </body>
     </html>
   );

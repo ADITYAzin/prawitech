@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -46,10 +48,6 @@ export default function AdminLogin() {
             Prawitech
           </h1>
         </div>
-
-        <h2 className="font-heading text-xl font-bold text-[#1A1A1A] text-center mb-8">
-          Management System Area
-        </h2>
 
         {error && (
           <div className="mb-4 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700 font-sans">
@@ -131,7 +129,18 @@ export default function AdminLogin() {
             Sign in with Google
           </button>
         </form>
+
+        <div className="mt-8 text-center">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-800 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Kembali ke Beranda
+          </Link>
+        </div>
       </div>
     </div>
   );
 }
+
