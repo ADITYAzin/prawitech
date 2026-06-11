@@ -15,10 +15,7 @@
     "@supabase/supabase-js": "^2.107.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-<<<<<<< HEAD
     "date-fns": "^4.4.0",
-=======
->>>>>>> 80c09d863db0c550f1b3cde1f6d1420e8836be8b
     "lucide-react": "^1.17.0",
     "next": "16.2.7",
     "react": "19.2.4",

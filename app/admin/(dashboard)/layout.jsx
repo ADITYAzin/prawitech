@@ -8,6 +8,8 @@ import {
   Briefcase, 
   ClipboardList, 
   MessageSquare,
+  Landmark,
+  CalendarClock,
   LogOut,
   ChevronRight,
   ChevronsLeft,
@@ -19,6 +21,8 @@ const navItems = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { label: "Orders", href: "/admin/orders", icon: ClipboardList },
   { label: "Works", href: "/admin/work", icon: Briefcase },
+  { label: "Finance", href: "/admin/finance", icon: Landmark },
+  { label: "Plans", href: "/admin/plans", icon: CalendarClock },
   { label: "Messages", href: "/admin/messages", icon: MessageSquare },
 ];
 
@@ -65,7 +69,7 @@ export default function AdminDashboardLayout({ children }) {
                   isActive ? "bg-slate-100 text-blue-600" : "text-slate-600 hover:bg-slate-50 hover:text-blue-600"
                 )}
               >
-                <Icon className="w-5 h-5 flex-shrink-0" />
+                <Icon className={cn("w-5 h-5 flex-shrink-0", isActive && "text-blue-600")} />
                 <span className={cn(!isCollapsed ? "opacity-100" : "opacity-0 w-0 h-0 hidden")}>{item.label}</span>
                 {!isCollapsed && <ChevronRight className={cn(
                   "w-4 h-4 ml-auto transition-opacity",
