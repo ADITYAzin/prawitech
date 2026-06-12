@@ -6,21 +6,21 @@ const services = [
     icon: Palette,
     title: "Graphic Design & Identity",
     description:
-      "We create visual identities and graphic communications that are not only aesthetically pleasing but also strategically designed to strengthen your brand’s position in the eyes of your B2B target market.",
+      "We craft visual identities and graphic communications that are both visually compelling and strategically aligned to elevate your brand’s position in the B2B market.",
     href: "/services/graphic-design",
   },
   {
     icon: Globe,
     title: "Web Development",
     description:
-      "Using modern AI-powered web development methods (vibe-coding), we build adaptive, secure, and high-performance websites and web applications with significantly more efficient development times without compromising quality.",
+      "Leveraging modern AI-assisted development methods, we build secure, high-performance websites and web applications with faster turnaround times — without compromising on quality.",
     href: "/services/web-development",
   },
   {
     icon: Bot,
     title: "AI Automation",
     description:
-      "We design and integrate artificial intelligence (AI)-based automation systems into your business workflows. From data management automation to customer response systems, we eliminate time-consuming manual processes so your team can focus on growth strategies.",
+      "We design and integrate AI-powered automation into your business workflows — from data management to customer response systems — freeing your team from manual tasks so they can focus on strategic growth.",
     href: "/services/ai-automation",
   },
 ];
@@ -31,11 +31,11 @@ export default function ServicesOverview() {
       <div className="mx-auto max-w-[1440px] px-6 sm:px-10 lg:px-20">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-heading text-3xl font-extrabold tracking-tight text-[#1A1A1A] sm:text-4xl lg:text-5xl">
-            Solusi Digital yang Dirancang Spesifik Untukmu.
+            Digital Solutions Tailored to Your Business.
           </h2>
           <p className="mt-5 text-base leading-relaxed text-[#1A1A1A]/70 sm:text-lg">
-            Eksplorasi layanan kami yang berfokus pada hasil nyata dan
-            pertumbuhan bisnis jangka panjang.
+            Explore our services — built for measurable results and long-term
+            growth.
           </p>
         </div>
 

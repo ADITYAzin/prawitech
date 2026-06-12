@@ -7,28 +7,28 @@ const projects = [
     slug: "nexacorp-platform",
     client: "NexaCorp",
     category: "Web Development",
-    metric: "Konversi naik 45%",
+    metric: "Significant conversion lift",
     gradient: "from-[#0768FB]/80 to-[#1A1A1A]/90",
   },
   {
     slug: "velostart-branding",
     client: "VeloStart",
     category: "Branding & Identity",
-    metric: "Brand recall +60%",
+    metric: "Stronger brand recall",
     gradient: "from-[#1A1A1A]/80 to-[#0768FB]/70",
   },
   {
     slug: "artha-automation",
     client: "Artha Group",
     category: "AI Automation",
-    metric: "Efisiensi operasional 3x",
+    metric: "Streamlined operations",
     gradient: "from-[#0768FB]/60 to-[#0768FB]/90",
   },
   {
     slug: "kreasi-digital",
     client: "Kreasi Digital",
     category: "UI/UX Design",
-    metric: "Engagement naik 80%",
+    metric: "Deeper audience engagement",
     gradient: "from-[#1A1A1A]/70 to-[#0768FB]/50",
   },
 ];
@@ -39,11 +39,10 @@ export default function FeaturedPortfolio() {
       <div className="mx-auto max-w-[1440px] px-6 sm:px-10 lg:px-20">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-heading text-3xl font-extrabold tracking-tight text-[#1A1A1A] sm:text-4xl lg:text-5xl">
-            Jejak Transformasi Digital Klien Kami.
+            Our Clients' Digital Transformation Journey.
           </h2>
           <p className="mt-5 text-base leading-relaxed text-[#1A1A1A]/70 sm:text-lg">
-            Lihat bagaimana kami membantu berbagai skala bisnis mencapai target
-            mereka melalui pendekatan teknologi dan desain yang humanis.
+            See how we've helped businesses of all sizes reach their goals through thoughtful technology and design.
           </p>
         </div>
 
@@ -83,7 +82,7 @@ export default function FeaturedPortfolio() {
             href="/work"
             className="inline-flex items-center text-sm font-semibold text-[#0768FB] hover:underline underline-offset-4"
           >
-            Lihat semua karya
+            View all work
           </Link>
         </div>
       </div>

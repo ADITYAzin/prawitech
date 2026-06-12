@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { ArrowRight, Menu, X, ChevronDown, LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
@@ -14,6 +14,8 @@ export default function Header({ admin }) {
   const router = useRouter();
   const pathname = usePathname();
   const supabase = createClient();
+  const servicesRef = useRef(null);
+  const closeTimeoutRef = useRef(null);
 
   const isAdmin = admin || pathname?.startsWith("/admin");
 
@@ -36,6 +38,39 @@ export default function Header({ admin }) {
     };
   }, [isMobileOpen]);
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (servicesRef.current && !servicesRef.current.contains(event.target)) {
+        if (closeTimeoutRef.current) {
+          clearTimeout(closeTimeoutRef.current);
+          closeTimeoutRef.current = null;
+        }
+        setIsServicesOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  function isActive(href) {
+    if (href === "/") return pathname === "/";
+    return pathname?.startsWith(href);
+  }
+
+  function handleMouseEnter() {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setIsServicesOpen(true);
+  }
+
+  function handleMouseLeave() {
+    closeTimeoutRef.current = setTimeout(() => {
+      setIsServicesOpen(false);
+    }, 200);
+  }
+
   // Hide global header on all admin pages
   if (isAdmin) return null;
 
@@ -48,6 +83,22 @@ export default function Header({ admin }) {
     await supabase.auth.signOut();
     router.push("/admin/login");
     router.refresh();
+  }
+
+  function linkClass(href) {
+    return `text-[14px] sm:text-[15px] transition-colors duration-200 ${
+      isActive(href)
+        ? "text-[#0768FB] font-semibold"
+        : "text-[#1A1A1A] font-medium hover:text-[#0768FB]"
+    }`;
+  }
+
+  function mobileLinkClass(href) {
+    return `block text-[16px] transition-colors duration-200 ${
+      isActive(href)
+        ? "text-[#0768FB] font-semibold"
+        : "text-[#1A1A1A] font-medium hover:text-[#0768FB]"
+    }`;
   }
 
   return (
@@ -69,38 +120,35 @@ export default function Header({ admin }) {
         <nav className="hidden lg:flex items-center gap-8">
           {isAdmin ? (
             <>
-              <Link
-                href="/admin"
-                className="text-[14px] sm:text-[15px] text-[#0768FB] font-semibold hover:text-[#0768FB] transition-colors duration-200"
-              >
+              <Link href="/admin" className={linkClass("/admin")}>
                 Dashboard
               </Link>
-              <Link
-                href="/admin/work"
-                className="text-[14px] sm:text-[15px] text-[#1A1A1A] font-medium hover:text-[#0768FB] transition-colors duration-200"
-              >
+              <Link href="/admin/work" className={linkClass("/admin/work")}>
                 Works
               </Link>
-              <Link
-                href="/admin/messages"
-                className="text-[14px] sm:text-[15px] text-[#1A1A1A] font-medium hover:text-[#0768FB] transition-colors duration-200"
-              >
+              <Link href="/admin/messages" className={linkClass("/admin/messages")}>
                 Messages
               </Link>
             </>
           ) : (
             <>
-              <Link
-                href="/about"
-                className="text-[14px] sm:text-[15px] text-[#1A1A1A] font-medium hover:text-[#0768FB] transition-colors duration-200"
-              >
+              <Link href="/about" className={linkClass("/about")}>
                 About
               </Link>
 
-              <div className="relative">
+              <div
+                ref={servicesRef}
+                className="relative"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
                 <button
-                  onClick={() => setIsServicesOpen(!isServicesOpen)}
-                  className="flex items-center gap-1 text-[14px] sm:text-[15px] text-[#1A1A1A] font-medium hover:text-[#0768FB] transition-colors duration-200"
+                  onClick={() => setIsServicesOpen((prev) => !prev)}
+                  className={`flex items-center gap-1 text-[14px] sm:text-[15px] transition-colors duration-200 ${
+                    pathname?.startsWith("/services")
+                      ? "text-[#0768FB] font-semibold"
+                      : "text-[#1A1A1A] font-medium hover:text-[#0768FB]"
+                  }`}
                 >
                   Services
                   <ChevronDown
@@ -111,23 +159,42 @@ export default function Header({ admin }) {
                 </button>
 
                 {isServicesOpen && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-6 w-[200px] bg-[#F4F7FB]/80 backdrop-blur-md rounded-[12px] shadow-lg border border-white/40 p-4 transition-all duration-300">
+                  <div
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-6 w-[200px] bg-[#F4F7FB]/80 backdrop-blur-md rounded-[12px] shadow-lg border border-white/40 p-4 transition-all duration-200"
+                  >
                     <div className="space-y-3">
                       <Link
                         href="/services/graphic-design"
-                        className="block text-[14px] sm:text-[15px] text-[#1A1A1A] hover:text-[#0768FB] transition-colors duration-200"
+                        onClick={() => setIsServicesOpen(false)}
+                        className={`block text-[14px] sm:text-[15px] transition-colors duration-200 ${
+                          pathname === "/services/graphic-design"
+                            ? "text-[#0768FB] font-semibold"
+                            : "text-[#1A1A1A] hover:text-[#0768FB]"
+                        }`}
                       >
                         Graphic Design
                       </Link>
                       <Link
                         href="/services/web-development"
-                        className="block text-[14px] sm:text-[15px] text-[#1A1A1A] hover:text-[#0768FB] transition-colors duration-200"
+                        onClick={() => setIsServicesOpen(false)}
+                        className={`block text-[14px] sm:text-[15px] transition-colors duration-200 ${
+                          pathname === "/services/web-development"
+                            ? "text-[#0768FB] font-semibold"
+                            : "text-[#1A1A1A] hover:text-[#0768FB]"
+                        }`}
                       >
                         Web Development
                       </Link>
                       <Link
                         href="/services/ai-automation"
-                        className="block text-[14px] sm:text-[15px] text-[#1A1A1A] hover:text-[#0768FB] transition-colors duration-200"
+                        onClick={() => setIsServicesOpen(false)}
+                        className={`block text-[14px] sm:text-[15px] transition-colors duration-200 ${
+                          pathname === "/services/ai-automation"
+                            ? "text-[#0768FB] font-semibold"
+                            : "text-[#1A1A1A] hover:text-[#0768FB]"
+                        }`}
                       >
                         AI Automation
                       </Link>
@@ -136,10 +203,7 @@ export default function Header({ admin }) {
                 )}
               </div>
 
-              <Link
-                href="/work"
-                className="text-[14px] sm:text-[15px] text-[#1A1A1A] font-medium hover:text-[#0768FB] transition-colors duration-200"
-              >
+              <Link href="/work" className={linkClass("/work")}>
                 Work
               </Link>
             </>
@@ -198,21 +262,21 @@ export default function Header({ admin }) {
                 <Link
                   href="/admin"
                   onClick={closeMobile}
-                  className="block text-[16px] text-[#0768FB] font-semibold hover:text-[#0768FB] transition-colors duration-200"
+                  className={mobileLinkClass("/admin")}
                 >
                   Dashboard
                 </Link>
                 <Link
                   href="/admin/work"
                   onClick={closeMobile}
-                  className="block text-[16px] text-[#1A1A1A] font-medium hover:text-[#0768FB] transition-colors duration-200"
+                  className={mobileLinkClass("/admin/work")}
                 >
                   Works
                 </Link>
                 <Link
                   href="/admin/messages"
                   onClick={closeMobile}
-                  className="block text-[16px] text-[#1A1A1A] font-medium hover:text-[#0768FB] transition-colors duration-200"
+                  className={mobileLinkClass("/admin/messages")}
                 >
                   Messages
                 </Link>
@@ -232,7 +296,7 @@ export default function Header({ admin }) {
                 <Link
                   href="/about"
                   onClick={closeMobile}
-                  className="block text-[16px] text-[#1A1A1A] font-medium hover:text-[#0768FB] transition-colors duration-200"
+                  className={mobileLinkClass("/about")}
                 >
                   About
                 </Link>
@@ -240,7 +304,11 @@ export default function Header({ admin }) {
                 <div>
                   <button
                     onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-                    className="flex items-center gap-1 text-[16px] text-[#1A1A1A] font-medium hover:text-[#0768FB] transition-colors duration-200"
+                    className={`flex items-center gap-1 text-[16px] transition-colors duration-200 ${
+                      pathname?.startsWith("/services")
+                        ? "text-[#0768FB] font-semibold"
+                        : "text-[#1A1A1A] font-medium hover:text-[#0768FB]"
+                    }`}
                   >
                     Services
                     <ChevronDown
@@ -259,21 +327,33 @@ export default function Header({ admin }) {
                       <Link
                         href="/services/graphic-design"
                         onClick={closeMobile}
-                        className="block text-[15px] text-[#1A1A1A]/70 hover:text-[#0768FB] transition-colors duration-200"
+                        className={`block text-[15px] transition-colors duration-200 ${
+                          pathname === "/services/graphic-design"
+                            ? "text-[#0768FB] font-semibold"
+                            : "text-[#1A1A1A]/70 hover:text-[#0768FB]"
+                        }`}
                       >
                         Graphic Design
                       </Link>
                       <Link
                         href="/services/web-development"
                         onClick={closeMobile}
-                        className="block text-[15px] text-[#1A1A1A]/70 hover:text-[#0768FB] transition-colors duration-200"
+                        className={`block text-[15px] transition-colors duration-200 ${
+                          pathname === "/services/web-development"
+                            ? "text-[#0768FB] font-semibold"
+                            : "text-[#1A1A1A]/70 hover:text-[#0768FB]"
+                        }`}
                       >
                         Web Development
                       </Link>
                       <Link
                         href="/services/ai-automation"
                         onClick={closeMobile}
-                        className="block text-[15px] text-[#1A1A1A]/70 hover:text-[#0768FB] transition-colors duration-200"
+                        className={`block text-[15px] transition-colors duration-200 ${
+                          pathname === "/services/ai-automation"
+                            ? "text-[#0768FB] font-semibold"
+                            : "text-[#1A1A1A]/70 hover:text-[#0768FB]"
+                        }`}
                       >
                         AI Automation
                       </Link>
@@ -284,7 +364,7 @@ export default function Header({ admin }) {
                 <Link
                   href="/work"
                   onClick={closeMobile}
-                  className="block text-[16px] text-[#1A1A1A] font-medium hover:text-[#0768FB] transition-colors duration-200"
+                  className={mobileLinkClass("/work")}
                 >
                   Work
                 </Link>

@@ -8,10 +8,10 @@ export default function Footer() {
         <div className="py-20 lg:py-32">
           <div className="max-w-3xl">
             <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#1A1A1A] leading-tight mb-4">
-              Siap Membangun Sesuatu yang Luar Biasa?
+              Ready to Build Something Amazing?
             </h2>
             <p className="font-sans text-base sm:text-lg text-[#1A1A1A]/70 mb-8">
-              Mari satukan visi kreatif dan teknologi untuk eskalasi bisnismu.
+              Let's bring together creative vision and technology to scale your business.
             </p>
             <a
               href="mailto:hello@prawitech.com"
@@ -25,10 +25,10 @@ export default function Footer() {
         {/* Middle Layer: Navigation Grid */}
         <div className="py-16 lg:py-20 border-t border-[#1A1A1A]/10">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
-            {/* Column 1: Perusahaan */}
+            {/* Column 1: Company */}
             <div>
               <h3 className="font-heading text-base font-bold text-[#1A1A1A] mb-6">
-                Perusahaan
+                Company
               </h3>
               <ul className="space-y-4">
                 <li>
@@ -36,7 +36,7 @@ export default function Footer() {
                     href="/about"
                     className="font-sans text-sm text-[#1A1A1A]/60 hover:text-[#0768FB] transition-colors duration-200"
                   >
-                    Tentang Kami
+                    About Us
                   </Link>
                 </li>
                 <li>
@@ -44,7 +44,7 @@ export default function Footer() {
                     href="/work"
                     className="font-sans text-sm text-[#1A1A1A]/60 hover:text-[#0768FB] transition-colors duration-200"
                   >
-                    Karya Kami
+                    Our Work
                   </Link>
                 </li>
                 <li>
@@ -52,16 +52,16 @@ export default function Footer() {
                     href="/contact"
                     className="font-sans text-sm text-[#1A1A1A]/60 hover:text-[#0768FB] transition-colors duration-200"
                   >
-                    Hubungi Kami
+                    Contact Us
                   </Link>
                 </li>
               </ul>
             </div>
 
-            {/* Column 2: Layanan Kami */}
+            {/* Column 2: Our Services */}
             <div>
               <h3 className="font-heading text-base font-bold text-[#1A1A1A] mb-6">
-                Layanan Kami
+                Our Services
               </h3>
               <ul className="space-y-4">
                 <li>
@@ -91,10 +91,10 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Column 3: Terhubung */}
+            {/* Column 3: Connect */}
             <div>
               <h3 className="font-heading text-base font-bold text-[#1A1A1A] mb-6">
-                Terhubung
+                Connect
               </h3>
               <div className="flex items-center gap-4">
                 {/* LinkedIn - Hidden */}
