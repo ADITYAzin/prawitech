@@ -1,13 +1,28 @@
+import Image from "next/image";
 import InteractiveVisual from "./InteractiveVisual";
 
-function VisualPlaceholder({ gradient, caption, className = "" }) {
+function VisualPlaceholder({ gradient, image, caption, className = "" }) {
   return (
-    <div className={`relative overflow-hidden rounded-2xl ${className}`}>
-      <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />
+    <div className={`relative overflow-hidden rounded-2xl ${className} group`}>
+      {image ? (
+        <Image
+          src={image}
+          alt={caption || "Project visual"}
+          fill
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+      ) : (
+        <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />
+      )}
+      
+      {/* Menambahkan efek gelap di bawah supaya caption tetap terbaca */}
       {caption && (
-        <p className="absolute bottom-6 left-6 text-sm font-medium text-white/70">
-          {caption}
-        </p>
+        <>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/90 via-transparent to-transparent opacity-70" />
+          <p className="absolute bottom-6 left-6 right-6 text-sm font-medium text-white z-10">
+            {caption}
+          </p>
+        </>
       )}
     </div>
   );
@@ -25,13 +40,26 @@ export default function ProjectVisualShowcase({ project }) {
               key={index}
               className="relative aspect-[21/9] min-h-[280px] w-full overflow-hidden"
             >
-              <div
-                className={`absolute inset-0 bg-gradient-to-br ${visual.gradient}`}
-              />
+              {visual.image ? (
+                <Image
+                  src={visual.image}
+                  alt={visual.caption || "Full width project visual"}
+                  fill
+                  className="object-cover"
+                />
+              ) : (
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${visual.gradient}`}
+                />
+              )}
+              
               {visual.caption && (
-                <p className="absolute bottom-8 left-8 text-sm font-medium text-white/70 lg:left-20">
-                  {visual.caption}
-                </p>
+                <>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/80 via-transparent to-transparent opacity-70" />
+                  <p className="absolute bottom-8 left-8 text-sm font-medium text-white lg:left-20 z-10">
+                    {visual.caption}
+                  </p>
+                </>
               )}
             </div>
           );
@@ -47,6 +75,7 @@ export default function ProjectVisualShowcase({ project }) {
                 <VisualPlaceholder
                   key={i}
                   gradient={gradient}
+                  image={visual.images?.[i]} // Tarik gambar dari array images
                   caption={visual.captions?.[i]}
                   className="aspect-[4/3]"
                 />
@@ -63,6 +92,7 @@ export default function ProjectVisualShowcase({ project }) {
             >
               <InteractiveVisual
                 gradient={visual.gradient}
+                image={visual.image} // Lempar prop image ke InteractiveVisual
                 caption={visual.caption}
               />
             </div>
