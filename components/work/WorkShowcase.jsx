@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { projects, PROJECT_CATEGORIES } from "@/lib/projects";
 
@@ -21,19 +22,35 @@ function ProjectCard({ project }) {
         GRID_SIZE_CLASSES[project.gridSize]
       )}
     >
-      <div
-        className={cn(
-          "absolute inset-0 bg-gradient-to-br transition-transform duration-500 group-hover:scale-[1.02]",
-          project.gradient
-        )}
-      />
-      <div className="absolute inset-0 bg-[#1A1A1A]/0 transition-colors duration-300 group-hover:bg-[#1A1A1A]/50" />
+      {/* FIX: LOGIKA MENAMPILKAN THUMBNAIL ATAU GRADASI */}
+      {project.thumbnail ? (
+        <Image
+          src={project.thumbnail}
+          alt={project.client}
+          fill
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+      ) : (
+        <div
+          className={cn(
+            "absolute inset-0 bg-gradient-to-br transition-transform duration-700 group-hover:scale-105",
+            project.gradient
+          )}
+        />
+      )}
+
+      {/* OVERLAY: Efek gelap pas di-hover biar teks putihnya nyala */}
+      <div className="absolute inset-0 bg-[#1A1A1A]/10 transition-colors duration-300 group-hover:bg-[#1A1A1A]/60" />
+      
+      {/* TEKS & KONTEN HOVER */}
       <div className="absolute inset-0 flex items-center justify-center p-8 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <div className="text-center">
-          <h3 className="font-heading text-2xl font-bold text-white sm:text-3xl">
+        <div className="text-center translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+          <h3 className="font-heading text-2xl font-bold text-white sm:text-3xl drop-shadow-lg">
             {project.client}
           </h3>
-          <p className="mt-2 text-base text-white/80">{project.categoryLabel}</p>
+          <p className="mt-2 text-base font-medium text-white/90 drop-shadow-md">
+            {project.categoryLabel}
+          </p>
         </div>
       </div>
     </Link>
