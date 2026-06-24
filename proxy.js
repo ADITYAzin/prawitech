@@ -7,31 +7,44 @@ export async function proxy(request) {
   const isAdminPath = request.nextUrl.pathname.startsWith("/admin");
   const isLoginPath = request.nextUrl.pathname === "/admin/login";
 
-  // If trying to access admin and not logged in, redirect to login
+  // 1. Kalau belum login tapi maksa masuk ke /admin -> Tendang ke login
   if (isAdminPath && !isLoginPath && !user) {
     const url = request.nextUrl.clone();
     url.pathname = "/admin/login";
     return NextResponse.redirect(url);
   }
 
-  // If logged in and trying to access login page, redirect to dashboard
+  // 🛡️ 2. SISTEM WHITELIST (PROTEKSI SUPER KETAT)
+  // Hapus tanda komentar (/* ... */) di bawah dan masukin email lu, email founder lu, dll.
+  /*
+  const allowedEmails = ["email_lu@gmail.com", "email_founder@gmail.com"];
+  
+  if (isAdminPath && user && !allowedEmails.includes(user.email)) {
+    // Kalau ada orang random berhasil login Google, tapi emailnya ga terdaftar di atas:
+    const url = request.nextUrl.clone();
+    url.pathname = "/admin/login";
+    url.searchParams.set("error", "unauthorized"); // Kasih pesan error
+    return NextResponse.redirect(url);
+  }
+  */
+
+  // 3. Kalau udah login dan nyoba buka halaman login -> Arahin ke dashboard
   if (user && isLoginPath) {
     const url = request.nextUrl.clone();
     url.pathname = "/admin";
     return NextResponse.redirect(url);
   }
 
-  // Add x-pathname header for layout detection if needed
+  // 4. Setup header & sinkronisasi cookies bawaan lu
   if (isAdminPath) {
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set("x-pathname", request.nextUrl.pathname);
 
-    // Merge supabase cookies into the next response
+    // Bawa cookies dari supabaseResponse ke nextResponse
     const nextResponse = NextResponse.next({
       request: { headers: requestHeaders },
     });
     
-    // Copy cookies from supabaseResponse to nextResponse
     supabaseResponse.cookies.getAll().forEach(cookie => {
       nextResponse.cookies.set(cookie.name, cookie.value);
     });
